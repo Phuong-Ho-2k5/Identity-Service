@@ -1,4 +1,4 @@
-﻿# Identity Service
+# Identity Service
 
 Service viết bằng Java 21 và Spring Boot 4.1.2, dùng Spring Data JPA để làm việc với PostgreSQL.
 
