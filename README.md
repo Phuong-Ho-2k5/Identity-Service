@@ -16,6 +16,8 @@ CREATE DATABASE identity_service;
 
 Sau đó mở terminal tại thư mục project và cấu hình kết nối. Thay username và password bên dưới bằng tài khoản PostgreSQL của bạn.
 
+Cấu hình database chỉ đọc từ ba biến môi trường bên dưới; cần thiết lập đủ trước khi chạy. Không ghi mật khẩu thật vào source code hoặc commit lên Git. Spring Boot không tự động nạp file `.env`; các lệnh dưới thiết lập biến trực tiếp cho terminal.
+
 ### Windows (PowerShell)
 
 ```powershell
@@ -65,5 +67,5 @@ Test hiện tại chỉ kiểm tra Spring context có khởi tạo được hay 
 
 - [`pom.xml`](pom.xml): dependencies và cấu hình build.
 - [`src/main/java/com/identity/identity_service/`](src/main/java/com/identity/identity_service/): mã nguồn ứng dụng.
-- [`application.yaml`](src/main/resources/application.yaml): cấu hình Spring Boot; hiện chỉ có tên ứng dụng.
+- [`application.yaml`](src/main/resources/application.yaml): cấu hình Spring Boot; thông tin kết nối database lấy từ biến môi trường.
 - [`src/test/java/com/identity/identity_service/`](src/test/java/com/identity/identity_service/): mã kiểm thử.
