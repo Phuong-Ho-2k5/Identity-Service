@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record UserCreationRequest(
-        @NotNull @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters") String username,
-        @NotNull @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters") String password,
+        @NotNull(message = "USERNAME_INVALID") @Size(min = 3, max = 50, message = "USERNAME_INVALID") String username,
+        @NotNull(message = "PASSWORD_INVALID") @Size(min = 8, max = 20, message = "PASSWORD_INVALID") String password,
         String firstName,
         String lastName,
         LocalDate dob

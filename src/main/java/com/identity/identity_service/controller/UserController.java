@@ -2,6 +2,7 @@ package com.identity.identity_service.controller;
 
 import com.identity.identity_service.dto.request.UserCreationRequest;
 import com.identity.identity_service.dto.request.UserUpdateRequest;
+import com.identity.identity_service.dto.response.ApiResponse;
 import com.identity.identity_service.entity.User;
 import com.identity.identity_service.service.UserService;
 import jakarta.validation.Valid;
@@ -17,8 +18,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@Valid @RequestBody UserCreationRequest request){
-        return userService.createUser(request);
+    ApiResponse<User> createUser(@Valid @RequestBody UserCreationRequest request){
+        return new ApiResponse<>(userService.createUser(request));
     }
 
     @GetMapping

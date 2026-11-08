@@ -3,6 +3,8 @@ package com.identity.identity_service.service;
 import com.identity.identity_service.dto.request.UserCreationRequest;
 import com.identity.identity_service.dto.request.UserUpdateRequest;
 import com.identity.identity_service.entity.User;
+import com.identity.identity_service.exception.AppException;
+import com.identity.identity_service.exception.ErrorCode;
 import com.identity.identity_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class UserService {
         User user = new User();
 
         if (userRepository.existsByUsername(request.username())){
-            throw new RuntimeException("This username has been used. Please choose a different username.");
+            throw new AppException(ErrorCode.USERNAME_EXISTED);
         }
 
         user.setUsername(request.username());
