@@ -58,14 +58,17 @@ Các biến môi trường trên chỉ áp dụng cho phiên terminal hiện t�
 
 Body JSON khi tạo người dùng gồm `username`, `password`, `firstName`, `lastName`, `dob`. Khi cập nhật, body gồm `password`, `firstName`, `lastName`, `dob`. Trường `dob` dùng định dạng `YYYY-MM-DD`.
 
-## Test và build
+Response người dùng gồm `id`, `username`, `firstName`, `lastName`, `dob`; không trả về `password`. API tạo trả về `ApiResponse<UserResponse>`, API danh sách trả về `List<UserResponse>`, API xem trả về `UserResponse`, API cập nhật trả về `UserResponse`.
+
+Endpoint `PUT` hiện cập nhật các trường khác `null`: trường bỏ qua hoặc gửi `null` giữ nguyên giá trị cũ. Vì vậy không thể dùng `null` để xóa `dob`, `firstName` hoặc `lastName`. Không thể cập nhật `id` và `username` qua endpoint này. Nếu gửi password mới, độ dài phải từ 8 đến 20 ký tự.
+
+Lombok sinh getter/setter cho entity và constructor cho dependency injection. MapStruct sinh code chuyển đổi request/entity/response, gán password trực tiếp từ request vào entity. Hiện chưa xử lý hash password; password được lưu nguyên giá trị nhận vào và không xuất hiện trong response.
+
+## Build
 
 Trên PowerShell:
 
 ```powershell
-# Chạy test
-.\mvnw.cmd test
-
 # Đóng gói
 .\mvnw.cmd clean package
 
@@ -75,7 +78,7 @@ java -jar target/identity-service-0.0.1-SNAPSHOT.jar
 
 Trên Linux / macOS, thay `.\mvnw.cmd` bằng `./mvnw`.
 
-Test hiện tại chỉ kiểm tra Spring context có khởi tạo được hay không và cần kết nối PostgreSQL. Lệnh `package` cũng chạy test, nên database cần sẵn sàng khi build.
+Project hiện chưa có test tự động. Build không cần kết nối PostgreSQL; khi chạy ứng dụng vẫn cần cấu hình database.
 
 ## Mã nguồn
 
@@ -83,4 +86,3 @@ Test hiện tại chỉ kiểm tra Spring context có khởi tạo được hay 
 - [`src/main/java/com/identity/identity_service/`](src/main/java/com/identity/identity_service/): mã nguồn ứng dụng.
 - [`application.yaml`](src/main/resources/application.yaml): cấu hình Spring Boot; thông tin kết nối database lấy từ biến môi trường.
 - [`.env.example`](.env.example): mẫu biến môi trường cho database, không chứa thông tin đăng nhập thật.
-- [`src/test/java/com/identity/identity_service/`](src/test/java/com/identity/identity_service/): mã kiểm thử.
