@@ -4,7 +4,8 @@ public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error"),
     USERNAME_EXISTED(1001, "This username has been used. Please choose a different username."),
     USERNAME_INVALID(1003, "Username must be between 3 and 50 characters"),
-    PASSWORD_INVALID(1004, "Password must be between 8 and 20 characters")
+    PASSWORD_INVALID(1004, "Password must be between 8 and 20 characters"),
+    USER_NOT_EXISTED(1005, "User not existed")
     ;
     private final int code;
     private final String message;
